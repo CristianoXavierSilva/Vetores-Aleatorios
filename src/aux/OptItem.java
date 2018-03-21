@@ -1,18 +1,17 @@
 package aux;
 
 import javax.swing.ButtonGroup;
-import view.Form_vetores2;
+import view.SorteioIndividual;
 
-public class optItem extends javax.swing.JFrame {
+public class OptItem extends javax.swing.JFrame {
     
-    public Form_vetores2 telaPrincipal;
+    public SorteioIndividual telaPrincipal;
     public String item;
     public String texto;
     
-    public optItem() {
-        initComponents();
-        telaPrincipal = new Form_vetores2();
+    public OptItem() {
         
+        initComponents();
         ButtonGroup bg = new ButtonGroup();
         bg.add(optServo);
         bg.add(optVirtude);
@@ -37,11 +36,6 @@ public class optItem extends javax.swing.JFrame {
 
         optServo.setText("Servo");
         optServo.setToolTipText("");
-        optServo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optServoActionPerformed(evt);
-            }
-        });
 
         optVirtude.setText("Virtude");
         optVirtude.setToolTipText("");
@@ -84,7 +78,7 @@ public class optItem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void opcaoSelecionada() {
+    public String opcaoSelecionada() {
 
         if(optServo.isSelected()) {
             item = "Servo";
@@ -93,20 +87,19 @@ public class optItem extends javax.swing.JFrame {
                 item = "Virtude";
             }
         }
+        
+        return item;
     }
     
-    public void getTexto(String texto){
+    public void getTexto(String texto, SorteioIndividual sort){
+        this.telaPrincipal = sort;
         this.texto = texto;
     }
     
-    private void optServoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optServoActionPerformed
-
-    }//GEN-LAST:event_optServoActionPerformed
-
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
-        opcaoSelecionada();
-        telaPrincipal.AddContentList(texto, item);
-        setVisible(false);
+        item = opcaoSelecionada();
+        telaPrincipal.AddContentList(this, texto, item);
+        dispose();
     }//GEN-LAST:event_OKActionPerformed
 
 

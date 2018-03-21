@@ -1,23 +1,24 @@
 package view;
 
-import aux.optItem;
+import aux.OptItem;
 import java.util.*;
 import javax.swing.*;
 
-public class Form_vetores2 extends javax.swing.JFrame {
+public class SorteioIndividual extends javax.swing.JFrame {
 
     public List<String> servos; //Array de nomes digitados
     public List<String> virtudes;
-    public DefaultListModel model;
+    public DefaultListModel modelServo;
+    public DefaultListModel modelVirtude;
 
-    public optItem opcoes;
+    public OptItem opcoes;
     public String opcao;
     public String texto;
-    
+
     public String servo;
     public String virtude;
 
-    public Form_vetores2() {
+    public SorteioIndividual() {
         initComponents();
 
         servos = new ArrayList<>();
@@ -45,11 +46,11 @@ public class Form_vetores2 extends javax.swing.JFrame {
 
         //O Model do JList é reponsável por exibir os elementos do componente 
         //para o usuário na forma de lista
-        model = new DefaultListModel();
+        modelServo = new DefaultListModel();
         servos.stream().forEach((item) -> {
-            model.addElement(item);
+            modelServo.addElement(item);
         });
-        this.listaServos.setModel(model);
+        this.listaServos.setModel(modelServo);
 
         virtudes = new ArrayList<>();
         virtudes.add("Paciência");
@@ -80,66 +81,51 @@ public class Form_vetores2 extends javax.swing.JFrame {
 
         //O Model do JList é reponsável por exibir os elementos do componente 
         //para o usuário na forma de lista
-        model = new DefaultListModel();
+        modelVirtude = new DefaultListModel();
         virtudes.stream().forEach((item) -> {
-            model.addElement(item);
+            modelVirtude.addElement(item);
         });
-        this.listaVirtudes.setModel(model);
+        this.listaVirtudes.setModel(modelVirtude);
     }
 
-    public void AddContentList(String texto, String item) {
+    public void AddContentList(OptItem opt, String texto, String item) {
+        opcao = item;
 
-        System.out.println(texto + "\n" + item);
-        nomeServo.setText("");
-        
-        if (texto != null) {
-
-            try {
-
-                switch (item) {
-                    case "Servo":
-                        //O Model do JList é reponsável por exibir os elementos do componente para o usuário na forma de lista
-                        model = new DefaultListModel();
-                        this.listaServos.setModel(model);
+        switch (opcao) {
+//            case "Virtude":
+//                virtudes.add(texto);
+//                virtudes.stream().forEach((text) -> {
+//                    for (int i = 0; i < modelVirtude.size(); i++) {
+//                        if (!text.equals(modelVirtude.get(i))) {
+//                            modelVirtude.addElement(text);
+//                        }
+//                    }
+//                });
+//
+//                this.listaVirtudes.setModel(modelVirtude);
+//            break;
+//
+            case "Servo":
+                modelServo.addElement(texto);
+                for (int i = 0; i < modelServo.size(); i++) {
+                    if (modelServo.get(i).equals(texto)) {
+                        modelServo.removeElement(i);
                         servos.add(texto);
-
-                        //O laço percorrerá o array e irá adicionar ao model cada
-                        //elemento presente no array
-                        for (String iten : servos) {
-                            //Se o elemento não existir, é adicionado ao model. Isso impede que nomes repetidos sejam inseridos na lista
-                            if (!model.contains(iten)) {
-                                model.addElement(iten);
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Nome já existe");
-                            }
-                        }
-
-                        break;
-
-                    case "Virtude":
-
-                        break;
+                    }
                 }
-
-            } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(this, "Nenhuma opção válida foi escolhida!" + "\n"
-                        + "Por favor, escolha uma opção válida!",
-                        "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Digite um conteúdo que deseja adicionar!");
+                this.listaServos.setModel(modelServo);
+                break;
         }
     }
-    
+
     public void Sortear() {
-        if(!servos.isEmpty()){
+        if (!servos.isEmpty()) {
             Random sorteador = new Random(); //Esse objeto fará o sorteio
             int sort = sorteador.nextInt(servos.size()); //A lista listInter é de tamanho 3. No caso, o objeto sorteará um número entre 0 e 2. O número corresponde ao índice da lista
             String nome = servos.get(sort); //O nome da lista, cujo o índice é igual ao número sorteado, é guardado na string.
             servos.remove(sort); //O nome da lista, cujo o índice é igual ao número sorteado, será removido da lista para não acontecer dele ser sorteado de novo.
             jLabel5.setText(nome); //O nome guardado na string é apresentado na tela pelo JLabel.
-            
+
             Random sorteador2 = new Random(); //Esse objeto fará o sorteio
             int sort2 = sorteador2.nextInt(virtudes.size()); //A lista listInter é de tamanho 3. No caso, o objeto sorteará um número entre 0 e 2. O número corresponde ao índice da lista
             String nome2 = virtudes.get(sort2); //O nome da lista, cujo o índice é igual ao número sorteado, é guardado na string.
@@ -310,13 +296,13 @@ public class Form_vetores2 extends javax.swing.JFrame {
     private void BtnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAdicionarActionPerformed
         texto = nomeServo.getText().trim();
 
-        opcoes = new optItem();
+        opcoes = new OptItem();
+        opcoes.getTexto(texto, this);
         opcoes.setVisible(true);
-        opcoes.getTexto(texto);
     }//GEN-LAST:event_BtnAdicionarActionPerformed
 
     private void BtnGerarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGerarListaActionPerformed
-         Sortear();
+        Sortear();
     }//GEN-LAST:event_BtnGerarListaActionPerformed
 
     private void BtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOkActionPerformed
@@ -344,7 +330,7 @@ public class Form_vetores2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Form_vetores2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SorteioIndividual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -362,7 +348,23 @@ public class Form_vetores2 extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -374,7 +376,7 @@ public class Form_vetores2 extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Form_vetores2().setVisible(true);
+            new SorteioIndividual().setVisible(true);
         });
     }
 
