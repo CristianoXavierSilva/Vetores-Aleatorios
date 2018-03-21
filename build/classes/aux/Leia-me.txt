@@ -1,0 +1,4 @@
+- Projeto pessoal para estudos. Foi criado nele um repositório Git para controle de versão;
+- Para cada atualização feita em qualquer arquivo que seja, é necessário realizar um comando commit no git;
+- Neste momento, o programador desse projeto está dando seguimento no curso de git e github para iniciantes;
+- Algumas correções foram feitas;

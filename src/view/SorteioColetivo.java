@@ -6,13 +6,13 @@ import java.util.Random;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-public class Form_vetores extends javax.swing.JFrame {
+public class SorteioColetivo extends javax.swing.JFrame {
 
     public List<String> urna;
     public List<String> listInter;
     public DefaultListModel model;
 
-    public Form_vetores() {
+    public SorteioColetivo() {
         initComponents();
         
         urna = new ArrayList<>();
@@ -318,8 +318,10 @@ public class Form_vetores extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Form_vetores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SorteioColetivo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -327,7 +329,7 @@ public class Form_vetores extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Form_vetores().setVisible(true);
+            new SorteioColetivo().setVisible(true);
         });
     }
 
