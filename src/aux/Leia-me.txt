@@ -2,3 +2,4 @@
 - Para cada atualização feita em qualquer arquivo que seja, é necessário realizar um comando commit no git;
 - Neste momento, o programador desse projeto está dando seguimento no curso de git e github para iniciantes;
 - Algumas correções foram feitas;
+- Testes vem sendo realidados;
